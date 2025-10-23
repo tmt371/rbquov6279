@@ -37,7 +37,13 @@ export class WorkflowService {
             const finalHtml = this.quoteGeneratorService.generateQuoteHtml(quoteData, ui, f3Data);
 
             if (finalHtml) {
-                this.eventAggregator.publish(EVENTS.SHOW_QUOTE_PREVIEW, finalHtml);
+                // [MODIFIED] Phase 2: Replace the old iframe event with the new window.open mechanism.
+                // this.eventAggregator.publish(EVENTS.SHOW_QUOTE_PREVIEW, finalHtml);
+
+                const blob = new Blob([finalHtml], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                window.open(url, '_blank');
+
             } else {
                 throw new Error("QuoteGeneratorService did not return HTML. Templates might not be loaded.");
             }
