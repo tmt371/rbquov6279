@@ -12,7 +12,7 @@ export class QuoteGeneratorService {
         this.quoteTemplate = '';
         this.detailsTemplate = '';
         
-        // [MODIFIED] Enhanced templates for inline CSS and better printing.
+        // [NEW] Store the action bar and script templates
         this.actionBarHtml = `
     <div id="action-bar">
         <button id="copy-html-btn">Copy HTML</button>
@@ -20,7 +20,6 @@ export class QuoteGeneratorService {
     </div>`;
 
         this.scriptHtml = `
-    <script src="https://cdn.jsdelivr.net/npm/juice@10.0.0/juice.min.js"><\/script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const copyBtn = document.getElementById('copy-html-btn');
@@ -35,58 +34,29 @@ export class QuoteGeneratorService {
 
             if (copyBtn) {
                 copyBtn.addEventListener('click', function() {
-                    // 1. Get the current page's full HTML
-                    const pageHtml = document.documentElement.outerHTML;
+                    // 1. Temporarily hide the action bar
+                    actionBar.style.display = 'none';
 
-                    // 2. Use juice to inline all styles
-                    juice.inlineContent(pageHtml, '', (err, inlinedHtml) => {
-                        if (err) {
-                            console.error('Failed to inline CSS:', err);
-                            alert('Failed to process HTML. Please check console for errors.');
-                            return;
-                        }
+                    // 2. Get the entire HTML of the page, including doctype
+                    const pageHtml = new XMLSerializer().serializeToString(document);
 
-                        // 3. Create a temporary element to parse and clean the inlined HTML
-                        const tempDiv = document.createElement('div');
-                        tempDiv.innerHTML = inlinedHtml;
-                        
-                        // 4. Remove the action bar and script tags from the temporary element
-                        const tempActionBar = tempDiv.querySelector('#action-bar');
-                        if (tempActionBar) tempActionBar.remove();
-                        
-                        const scripts = tempDiv.querySelectorAll('script');
-                        scripts.forEach(script => script.remove());
-
-                        // 5. Get the cleaned HTML
-                        const cleanedHtml = tempDiv.innerHTML;
-                        
-                        // 6. Copy the cleaned, inlined HTML to the clipboard
-                        navigator.clipboard.writeText(cleanedHtml)
-                            .then(() => {
-                                alert('Inlined HTML for email has been copied successfully!');
-                            })
-                            .catch(copyErr => {
-                                console.error('Failed to copy:', copyErr);
-                                alert('Failed to copy. Please check console for errors.');
-                            });
-                    });
+                    // 3. Copy to clipboard
+                    navigator.clipboard.writeText(pageHtml)
+                        .then(() => {
+                            // 4. Show the action bar again
+                            actionBar.style.display = 'flex';
+                            alert('HTML copied to clipboard successfully!');
+                        })
+                        .catch(err => {
+                            // 4. Show the action bar again even if it fails
+                            actionBar.style.display = 'flex';
+                            console.error('Failed to copy:', err);
+                            alert('Failed to copy. Please check console for errors.');
+                        });
                 });
             }
         });
     <\/script>`;
-    
-        this.printStylesHtml = `
-    <style>
-        @media print {
-            #action-bar {
-                display: none !important;
-            }
-            * {
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-        }
-    </style>`;
 
 
         this._initialize();
@@ -125,12 +95,11 @@ export class QuoteGeneratorService {
         const detailsStyleContent = styleMatch ? styleMatch[0] : '';
         const detailsBodyContent = detailsBodyMatch[1];
 
-        // [MODIFIED] Inject both original styles and the new print-specific styles
-        let finalHtml = this.quoteTemplate.replace('</head>', `${detailsStyleContent}${this.printStylesHtml}</head>`);
+        let finalHtml = this.quoteTemplate.replace('</head>', `${detailsStyleContent}</head>`);
         finalHtml = finalHtml.replace('</body>', `${detailsBodyContent}</body>`);
         finalHtml = this._populateTemplate(finalHtml, templateData);
 
-        // Inject the action bar and script into the final HTML
+        // [NEW] Inject the action bar and script into the final HTML
         finalHtml = finalHtml.replace(
             '<body>',
             `<body>${this.actionBarHtml}`
