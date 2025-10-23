@@ -11,6 +11,53 @@ export class QuoteGeneratorService {
         this.calculationService = calculationService;
         this.quoteTemplate = '';
         this.detailsTemplate = '';
+        
+        // [NEW] Store the action bar and script templates
+        this.actionBarHtml = `
+    <div id="action-bar">
+        <button id="copy-html-btn">Copy HTML</button>
+        <button id="print-btn">Print / Save PDF</button>
+    </div>`;
+
+        this.scriptHtml = `
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const copyBtn = document.getElementById('copy-html-btn');
+            const printBtn = document.getElementById('print-btn');
+            const actionBar = document.getElementById('action-bar');
+
+            if (printBtn) {
+                printBtn.addEventListener('click', function() {
+                    window.print();
+                });
+            }
+
+            if (copyBtn) {
+                copyBtn.addEventListener('click', function() {
+                    // 1. Temporarily hide the action bar
+                    actionBar.style.display = 'none';
+
+                    // 2. Get the entire HTML of the page, including doctype
+                    const pageHtml = new XMLSerializer().serializeToString(document);
+
+                    // 3. Copy to clipboard
+                    navigator.clipboard.writeText(pageHtml)
+                        .then(() => {
+                            // 4. Show the action bar again
+                            actionBar.style.display = 'flex';
+                            alert('HTML copied to clipboard successfully!');
+                        })
+                        .catch(err => {
+                            // 4. Show the action bar again even if it fails
+                            actionBar.style.display = 'flex';
+                            console.error('Failed to copy:', err);
+                            alert('Failed to copy. Please check console for errors.');
+                        });
+                });
+            }
+        });
+    <\/script>`;
+
 
         this._initialize();
         console.log("QuoteGeneratorService Initialized.");
@@ -51,6 +98,17 @@ export class QuoteGeneratorService {
         let finalHtml = this.quoteTemplate.replace('</head>', `${detailsStyleContent}</head>`);
         finalHtml = finalHtml.replace('</body>', `${detailsBodyContent}</body>`);
         finalHtml = this._populateTemplate(finalHtml, templateData);
+
+        // [NEW] Inject the action bar and script into the final HTML
+        finalHtml = finalHtml.replace(
+            '<body>',
+            `<body>${this.actionBarHtml}`
+        );
+
+        finalHtml = finalHtml.replace(
+            '</body>',
+            `${this.scriptHtml}</body>`
+        );
 
         return finalHtml;
     }
