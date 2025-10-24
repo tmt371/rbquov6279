@@ -8,8 +8,7 @@
 @import url('./04-core-code/ui/css/virtual-keyboard.css');
 @import url('./04-core-code/ui/css/results-table.css');
 @import url('./04-core-code/ui/css/toast-notification.css');
-@import url('./04-core-code/ui/css/quote-preview.css');
-/* [NEW] */
+/* [REMOVED] */
 
 /* --- Global Variables --- */
 :root {

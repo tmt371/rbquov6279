@@ -5,13 +5,13 @@
  * AppContext 是一個簡易的依賴注入（DI）容器，用於管理應用程式中各模組的實例化與依賴關係。
  * 它的主要職責為：
  * 1. 集中創建與配置服務（Services）、管理器（Managers）、工廠（Factories）與視圖（Views）。
- * 2. 解析模組之間的依賴，確保每個模組都能獲得它所需要的其他模組的實例。
+ * 2. 解析模組之間的依賴，確保每個模組都能獲得其所需要的其他模組的實例。
  * 3. 簡化 `main.js`，使其只專注於應用的啟動流程，而非組件的創建細節。
  *
- * 這個模式的好處為：
+ * 這個模式的好處是：
  * - **集中管理**: 所有物件的創建邏輯都集中在此，方便維護與修改。
  * - **降低耦合**: 模組之間不直接創建依賴，而是透過 AppContext 來獲取，降低了耦合度。
- * - **便於測試**: 在測試時，可以輕易地將真實依賴，注入模擬（mock）的組件。
+ * - **便於測試**: 在測試時，可以輕易地將真實依賴換成注入模擬（mock）的組件。
  */
 export class AppContext {
     constructor() {
@@ -113,12 +113,7 @@ export class AppContext {
         });
         this.register('rightPanelComponent', rightPanelComponent);
 
-        // --- [NEW] Instantiate Quote Preview Component ---
-        const quotePreviewComponent = new QuotePreviewComponent({
-            containerElement: document.getElementById(DOM_IDS.QUOTE_PREVIEW_OVERLAY),
-            eventAggregator,
-        });
-        this.register('quotePreviewComponent', quotePreviewComponent);
+        // --- [REMOVED] Quote Preview Component instantiation ---
 
         // --- Instantiate Main Left Panel Views ---
         const k1LocationView = new K1LocationView({ stateService });
@@ -148,7 +143,7 @@ export class AppContext {
             detailConfigView,
             quoteGeneratorService // [NEW] Inject the new service
         });
-        workflowService.setQuotePreviewComponent(quotePreviewComponent); // [NEW] Inject dependency
+        // [REMOVED]
         this.register('workflowService', workflowService);
 
         const quickQuoteView = new QuickQuoteView({
@@ -197,5 +192,5 @@ import { F1CostView } from './ui/views/f1-cost-view.js';
 import { F2SummaryView } from './ui/views/f2-summary-view.js';
 import { F3QuotePrepView } from './ui/views/f3-quote-prep-view.js';
 import { F4ActionsView } from './ui/views/f4-actions-view.js';
-import { QuotePreviewComponent } from './ui/quote-preview-component.js'; // [NEW]
+// [REMOVED]
 import { DOM_IDS } from './config/constants.js'; // [NEW]
