@@ -37,7 +37,7 @@
         .quotation-inner-wrapper {
             border: 2px solid #a0d3e8;
             padding: 40px;
-            border-radius: 8px; /* [NEW] Added border-radius for consistency */
+            border-radius: 8px;
         }
 
         /* --- 頁首 Header --- */
@@ -174,7 +174,6 @@
             color: #999;
         }
         
-        /* [NEW] Wrapper for horizontal scrolling on mobile */
         .table-scroll-wrapper {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
@@ -352,7 +351,60 @@
                 box-sizing: border-box; /* Fix for overflow issue */
             }
 
-            /* [REMOVED] Card-based layout styles for table on mobile */
+            /* [MODIFIED] Re-styled mobile table to keep thead and use card-like rows */
+            .table-scroll-wrapper {
+                overflow-x: hidden; /* Prevent horizontal scroll on the wrapper */
+            }
+            .items-table {
+                border: none;
+            }
+            .items-table thead {
+                /* Visually hide the original header, but keep it for accessibility */
+                border: none;
+                clip: rect(0 0 0 0);
+                height: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+            .items-table tr {
+                display: block;
+                margin-bottom: 15px;
+                border: 1px solid var(--border-color);
+                border-radius: 5px;
+                padding: 0;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            }
+            .items-table td {
+                display: flex;
+                justify-content: space-between;
+                padding: 10px 15px;
+                border: none;
+                border-bottom: 1px solid var(--border-color);
+                text-align: right;
+            }
+            .items-table tr td:last-child {
+                border-bottom: none;
+            }
+            .items-table td:before {
+                content: attr(data-label);
+                font-weight: 600;
+                text-align: left;
+                padding-right: 15px;
+                color: #333;
+            }
+            /* Style the first cell of each row to look like a header */
+            .items-table td:first-of-type {
+                background-color: var(--primary-color);
+                color: white;
+                font-weight: bold;
+                border-radius: 4px 4px 0 0;
+            }
+            .items-table td:first-of-type::before {
+                color: white;
+            }
         }
     </style>
 </head>

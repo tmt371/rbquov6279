@@ -25,7 +25,7 @@
         .page-container {
             max-width: 1200px;
             margin: auto;
-            padding: 20px; /* [MODIFIED] Changed from 15px to 20px for consistency */
+            padding: 20px;
         }
 
         .content-wrapper {
@@ -94,7 +94,6 @@
             border-top: 2px solid #ccc;
         }
 
-        /* [NEW] Conditional background colors for fabric types */
         .bg-blockout {
             background-color: #f0f0f0;
             /* Light Grey */
@@ -144,12 +143,11 @@
         }
 
         .legend p {
-            margin: 8px 0; /* Increased margin for better spacing */
-            display: flex; /* Use flexbox for alignment */
+            margin: 8px 0;
+            display: flex;
             align-items: center;
         }
 
-        /* [NEW] Style for the color swatch */
         .color-swatch {
             display: inline-block;
             width: 14px;
@@ -163,28 +161,24 @@
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
-        
-        /* --- [NEW] Flexbox container for appendix layout --- */
+
         .appendix-flex-container {
             display: flex;
             gap: 20px;
             margin-top: 40px;
-            align-items: flex-start; /* Align items to the top */
+            align-items: flex-start;
         }
 
         .appendix-flex-container > * {
-            flex: 1; /* Each child takes up equal space */
-            min-width: 0; /* Allow flex items to shrink */
+            flex: 1;
+            min-width: 0;
         }
-
-        /* On smaller screens, stack them vertically */
+        
         @media (max-width: 850px) {
             .appendix-flex-container {
                 flex-direction: column;
             }
         }
-        /* --- End of new styles --- */
-
 
         @media (max-width: 768px) {
             .page-container {
@@ -199,6 +193,58 @@
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 5px;
+            }
+
+            /* [MODIFIED] Re-styled mobile table to keep thead and use card-like rows */
+            .table-scroll-wrapper {
+                overflow-x: hidden;
+            }
+            .detailed-list-table, .motorised-accessories-table {
+                border: none;
+            }
+            .detailed-list-table thead, .motorised-accessories-table thead {
+                border: none;
+                clip: rect(0 0 0 0);
+                height: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+            .detailed-list-table tr, .motorised-accessories-table tr {
+                display: block;
+                margin-bottom: 15px;
+                border: 1px solid var(--border-light-grey);
+                border-radius: 5px;
+                padding: 0;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            }
+            .detailed-list-table td, .motorised-accessories-table td {
+                display: flex;
+                justify-content: space-between;
+                padding: 10px 15px;
+                border: none;
+                border-bottom: 1px solid var(--border-light-grey);
+                text-align: right;
+            }
+            .detailed-list-table tr td:last-child, .motorised-accessories-table tr td:last-child {
+                border-bottom: none;
+            }
+            .detailed-list-table td:before, .motorised-accessories-table td:before {
+                content: attr(data-label);
+                font-weight: 600;
+                text-align: left;
+                padding-right: 15px;
+            }
+            .detailed-list-table td:first-of-type, .motorised-accessories-table td:first-of-type {
+                background-color: var(--header-bg-color);
+                color: #333;
+                font-weight: bold;
+                border-radius: 4px 4px 0 0;
+            }
+            .detailed-list-table td:first-of-type::before, .motorised-accessories-table td:first-of-type::before {
+                color: #333;
             }
         }
     </style>
