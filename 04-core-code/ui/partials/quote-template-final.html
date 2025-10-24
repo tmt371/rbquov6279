@@ -173,6 +173,12 @@
             text-decoration: line-through;
             color: #999;
         }
+        
+        /* [NEW] Wrapper for horizontal scrolling on mobile */
+        .table-scroll-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
 
         /* --- 總計 --- */
         .summary-section {
@@ -343,41 +349,10 @@
             .payment-info,
             .call-to-action {
                 width: 100%;
-                box-sizing: border-box; /* [NEW] Fix for overflow issue */
+                box-sizing: border-box; /* Fix for overflow issue */
             }
 
-            .items-table thead {
-                display: none;
-            }
-
-            .items-table tr {
-                display: block;
-                margin-bottom: 20px;
-                border: 1px solid var(--border-color);
-                border-radius: 4px;
-                padding: 10px; /* [MODIFIED] Reduced padding */
-            }
-
-            .items-table td {
-                display: flex;
-                justify-content: space-between;
-                padding: 6px 0; /* [MODIFIED] Reduced padding */
-                font-size: 0.95em; /* [MODIFIED] Slightly reduced font size */
-                border: none;
-                text-align: right;
-            }
-
-            .items-table td:before {
-                content: attr(data-label);
-                font-weight: 600;
-                text-align: left;
-                padding-right: 15px;
-                color: #333;
-            }
-
-            .items-table .align-right {
-                text-align: right;
-            }
+            /* [REMOVED] Card-based layout styles for table on mobile */
         }
     </style>
 </head>
@@ -412,20 +387,22 @@
                 </section>
 
                 <section class="items-section">
-                    <table class="items-table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Description</th>
-                                <th class="align-right">QTY</th>
-                                <th class="align-right">Price</th>
-                                <th class="align-right">Discounted Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{{itemsTableBody}}}
-                        </tbody>
-                    </table>
+                    <div class="table-scroll-wrapper">
+                        <table class="items-table">
+                            <thead>
+                                <tr>
+                                    <th>NO</th>
+                                    <th>Description</th>
+                                    <th class="align-right">QTY</th>
+                                    <th class="align-right">Price</th>
+                                    <th class="align-right">Discounted Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{{itemsTableBody}}}
+                            </tbody>
+                        </table>
+                    </div>
                 </section>
 
                 <section class="summary-section">
