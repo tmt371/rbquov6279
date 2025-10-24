@@ -245,8 +245,7 @@ export class QuoteGeneratorService {
             <tr>
                 <td data-label="#">1</td>
                 <td data-label="Description">
-                    <div class="description"><strong>Roller Blinds Package</strong></div>
-                    <div class="details">See appendix for detailed specifications.</div>
+                    <div class="description"><strong>Roller Blinds</strong></div>
                 </td>
                 <td data-label="QTY" class="align-right">${validItemCount}</td>
                 <td data-label="Price" class="align-right">
@@ -266,7 +265,6 @@ export class QuoteGeneratorService {
                     <td data-label="#">${itemNumber++}</td>
                     <td data-label="Description">
                         <div class="description"><strong>Installation Accessories</strong></div>
-                        <div class="details">See appendix for detailed specifications.</div>
                     </td>
                     <td data-label="QTY" class="align-right">NA</td>
                     <td data-label="Price" class="align-right">$${(summaryData.acceSum || 0).toFixed(2)}</td>
@@ -281,7 +279,6 @@ export class QuoteGeneratorService {
                     <td data-label="#">${itemNumber++}</td>
                     <td data-label="Description">
                         <div class="description"><strong>Motorised Accessories</strong></div>
-                        <div class="details">See appendix for detailed specifications.</div>
                     </td>
                     <td data-label="QTY" class="align-right">NA</td>
                     <td data-label="Price" class="align-right">$${(summaryData.eAcceSum || 0).toFixed(2)}</td>
