@@ -6863,16 +6863,6 @@ node_modules/
         </div>
     </div>
 
-    <div id="quote-preview-overlay" class="quote-preview-overlay">
-        <div class="quote-preview-content">
-            <iframe class="quote-preview-iframe" title="Quote Preview"></iframe>
-            <div class="quote-preview-actions">
-                <button class="preview-btn-secondary">Close</button>
-                <button class="preview-btn-primary">Print / Save as PDF</button>
-            </div>
-        </div>
-    </div>
-
     <script type="module" src="./04-core-code/main.js"></script>
 
     <script>
@@ -6902,8 +6892,7 @@ node_modules/
 @import url('./04-core-code/ui/css/virtual-keyboard.css');
 @import url('./04-core-code/ui/css/results-table.css');
 @import url('./04-core-code/ui/css/toast-notification.css');
-@import url('./04-core-code/ui/css/quote-preview.css');
-/* [NEW] */
+/* [REMOVED] */
 
 /* --- Global Variables --- */
 :root {
@@ -7215,13 +7204,13 @@ export default {
  * AppContext ?Ø‰??ãÁ∞°?ìÁ?‰æùË≥¥Ê≥®ÂÖ•ÔºàDIÔºâÂÆπ?®Ô??®ÊñºÁÆ°Á??âÁî®Á®ãÂ?‰∏≠Â?Ê®°Á??ÑÂØ¶‰æãÂ??á‰?Ë≥¥È?‰øÇ„Ä?
  * ÂÆÉÁ?‰∏ªË??∑Ë≤¨?∫Ô?
  * 1. ?Ü‰∏≠?µÂª∫?áÈ?ÁΩÆÊ??ôÔ?ServicesÔºâ„ÄÅÁÆ°?ÜÂô®ÔºàManagersÔºâ„ÄÅÂ∑•Âª†Ô?FactoriesÔºâË?Ë¶ñÂ?ÔºàViewsÔºâ„Ä?
- * 2. Ëß??Ê®°Á?‰πãÈ??Ñ‰?Ë≥¥Ô?Á¢∫‰?ÊØèÂÄãÊ®°ÁµÑÈÉΩ?ΩÁç≤ÂæóÂ??Ä?ÄË¶ÅÁ??∂‰?Ê®°Á??ÑÂØ¶‰æã„Ä?
+ * 2. Ëß??Ê®°Á?‰πãÈ??Ñ‰?Ë≥¥Ô?Á¢∫‰?ÊØèÂÄãÊ®°ÁµÑÈÉΩ?ΩÁç≤ÂæóÂÖ∂?Ä?ÄË¶ÅÁ??∂‰?Ê®°Á??ÑÂØ¶‰æã„Ä?
  * 3. Á∞°Â? `main.js`Ôºå‰Ωø?∂Âè™Â∞àÊ≥®?ºÊ??®Á??üÂ?ÊµÅÁ?ÔºåËÄåÈ?ÁµÑ‰ª∂?ÑÂâµÂª∫Á¥∞ÁØÄ??
  *
- * ?ôÂÄãÊ®°ÂºèÁ?Â•ΩË??∫Ô?
+ * ?ôÂÄãÊ®°ÂºèÁ?Â•ΩË??ØÔ?
  * - **?Ü‰∏≠ÁÆ°Á?**: ?Ä?âÁâ©‰ª∂Á??µÂª∫?èËºØ?ΩÈ?‰∏≠Âú®Ê≠§Ô??π‰æøÁ∂≠Ë≠∑?á‰øÆ?π„Ä?
  * - **?ç‰??¶Â?**: Ê®°Á?‰πãÈ?‰∏çÁõ¥?•ÂâµÂª∫‰?Ë≥¥Ô??åÊòØ?èÈ? AppContext ‰æÜÁç≤?ñÔ??ç‰?‰∫ÜËÄ¶Â?Â∫¶„Ä?
- * - **‰æøÊñºÊ∏¨Ë©¶**: ?®Ê∏¨Ë©¶Ê?ÔºåÂèØ‰ª•Ë??ìÂú∞Â∞áÁ?ÂØ¶‰?Ë≥¥Ô?Ê≥®ÂÖ•Ê®°Êì¨ÔºàmockÔºâÁ?ÁµÑ‰ª∂??
+ * - **‰æøÊñºÊ∏¨Ë©¶**: ?®Ê∏¨Ë©¶Ê?ÔºåÂèØ‰ª•Ë??ìÂú∞Â∞áÁ?ÂØ¶‰?Ë≥¥Ê??êÊ≥®?•Ê®°?¨Ô?mockÔºâÁ?ÁµÑ‰ª∂??
  */
 export class AppContext {
     constructor() {
@@ -7323,12 +7312,7 @@ export class AppContext {
         });
         this.register('rightPanelComponent', rightPanelComponent);
 
-        // --- [NEW] Instantiate Quote Preview Component ---
-        const quotePreviewComponent = new QuotePreviewComponent({
-            containerElement: document.getElementById(DOM_IDS.QUOTE_PREVIEW_OVERLAY),
-            eventAggregator,
-        });
-        this.register('quotePreviewComponent', quotePreviewComponent);
+        // --- [REMOVED] Quote Preview Component instantiation ---
 
         // --- Instantiate Main Left Panel Views ---
         const k1LocationView = new K1LocationView({ stateService });
@@ -7358,7 +7342,7 @@ export class AppContext {
             detailConfigView,
             quoteGeneratorService // [NEW] Inject the new service
         });
-        workflowService.setQuotePreviewComponent(quotePreviewComponent); // [NEW] Inject dependency
+        // [REMOVED]
         this.register('workflowService', workflowService);
 
         const quickQuoteView = new QuickQuoteView({
@@ -7407,7 +7391,7 @@ import { F1CostView } from './ui/views/f1-cost-view.js';
 import { F2SummaryView } from './ui/views/f2-summary-view.js';
 import { F3QuotePrepView } from './ui/views/f3-quote-prep-view.js';
 import { F4ActionsView } from './ui/views/f4-actions-view.js';
-import { QuotePreviewComponent } from './ui/quote-preview-component.js'; // [NEW]
+// [REMOVED]
 import { DOM_IDS } from './config/constants.js'; // [NEW]
 --- FILE END ---
 
@@ -7721,7 +7705,7 @@ import { UIManager } from './ui/ui-manager.js';
 import { InputHandler } from './ui/input-handler.js';
 import { paths } from './config/paths.js';
 import { EVENTS, DOM_IDS } from './config/constants.js';
-import { QuotePreviewComponent } from './ui/quote-preview-component.js'; // [NEW]
+// [REMOVED]
 
 class App {
     constructor() {
@@ -7778,8 +7762,7 @@ class App {
         const appController = this.appContext.get('appController');
         const rightPanelComponent = this.appContext.get('rightPanelComponent');
 
-        // [MODIFIED] Get the new component instance.
-        const quotePreviewComponent = this.appContext.get('quotePreviewComponent');
+        // [REMOVED]
 
         // Step 4: Initialize the main UI manager.
         this.uiManager = new UIManager({
@@ -7787,7 +7770,7 @@ class App {
             eventAggregator,
             calculationService,
             rightPanelComponent,
-            quotePreviewComponent // Pass the new component
+            // [REMOVED]
         });
 
         // Step 5: Continue with the rest of the application startup.
@@ -9877,6 +9860,53 @@ export class QuoteGeneratorService {
         this.calculationService = calculationService;
         this.quoteTemplate = '';
         this.detailsTemplate = '';
+        
+        // [NEW] Store the action bar and script templates
+        this.actionBarHtml = `
+    <div id="action-bar">
+        <button id="copy-html-btn">Copy HTML</button>
+        <button id="print-btn">Print / Save PDF</button>
+    </div>`;
+
+        this.scriptHtml = `
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const copyBtn = document.getElementById('copy-html-btn');
+            const printBtn = document.getElementById('print-btn');
+            const actionBar = document.getElementById('action-bar');
+
+            if (printBtn) {
+                printBtn.addEventListener('click', function() {
+                    window.print();
+                });
+            }
+
+            if (copyBtn) {
+                copyBtn.addEventListener('click', function() {
+                    // 1. Temporarily hide the action bar
+                    actionBar.style.display = 'none';
+
+                    // 2. Get the entire HTML of the page, including doctype
+                    const pageHtml = new XMLSerializer().serializeToString(document);
+
+                    // 3. Copy to clipboard
+                    navigator.clipboard.writeText(pageHtml)
+                        .then(() => {
+                            // 4. Show the action bar again
+                            actionBar.style.display = 'flex';
+                            alert('HTML copied to clipboard successfully!');
+                        })
+                        .catch(err => {
+                            // 4. Show the action bar again even if it fails
+                            actionBar.style.display = 'flex';
+                            console.error('Failed to copy:', err);
+                            alert('Failed to copy. Please check console for errors.');
+                        });
+                });
+            }
+        });
+    <\/script>`;
+
 
         this._initialize();
         console.log("QuoteGeneratorService Initialized.");
@@ -9917,6 +9947,17 @@ export class QuoteGeneratorService {
         let finalHtml = this.quoteTemplate.replace('</head>', `${detailsStyleContent}</head>`);
         finalHtml = finalHtml.replace('</body>', `${detailsBodyContent}</body>`);
         finalHtml = this._populateTemplate(finalHtml, templateData);
+
+        // [NEW] Inject the action bar and script into the final HTML
+        finalHtml = finalHtml.replace(
+            '<body>',
+            `<body>${this.actionBarHtml}`
+        );
+
+        finalHtml = finalHtml.replace(
+            '</body>',
+            `${this.scriptHtml}</body>`
+        );
 
         return finalHtml;
     }
@@ -10053,8 +10094,7 @@ export class QuoteGeneratorService {
             <tr>
                 <td data-label="#">1</td>
                 <td data-label="Description">
-                    <div class="description"><strong>Roller Blinds Package</strong></div>
-                    <div class="details">See appendix for detailed specifications.</div>
+                    <div class="description"><strong>Roller Blinds</strong></div>
                 </td>
                 <td data-label="QTY" class="align-right">${validItemCount}</td>
                 <td data-label="Price" class="align-right">
@@ -10074,7 +10114,6 @@ export class QuoteGeneratorService {
                     <td data-label="#">${itemNumber++}</td>
                     <td data-label="Description">
                         <div class="description"><strong>Installation Accessories</strong></div>
-                        <div class="details">See appendix for detailed specifications.</div>
                     </td>
                     <td data-label="QTY" class="align-right">NA</td>
                     <td data-label="Price" class="align-right">$${(summaryData.acceSum || 0).toFixed(2)}</td>
@@ -10089,7 +10128,6 @@ export class QuoteGeneratorService {
                     <td data-label="#">${itemNumber++}</td>
                     <td data-label="Description">
                         <div class="description"><strong>Motorised Accessories</strong></div>
-                        <div class="details">See appendix for detailed specifications.</div>
                     </td>
                     <td data-label="QTY" class="align-right">NA</td>
                     <td data-label="Price" class="align-right">$${(summaryData.eAcceSum || 0).toFixed(2)}</td>
@@ -10234,7 +10272,13 @@ export class WorkflowService {
             const finalHtml = this.quoteGeneratorService.generateQuoteHtml(quoteData, ui, f3Data);
 
             if (finalHtml) {
-                this.eventAggregator.publish(EVENTS.SHOW_QUOTE_PREVIEW, finalHtml);
+                // [MODIFIED] Phase 2: Replace the old iframe event with the new window.open mechanism.
+                // this.eventAggregator.publish(EVENTS.SHOW_QUOTE_PREVIEW, finalHtml);
+
+                const blob = new Blob([finalHtml], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                window.open(url, '_blank');
+
             } else {
                 throw new Error("QuoteGeneratorService did not return HTML. Templates might not be loaded.");
             }
@@ -11536,103 +11580,6 @@ export class PanelComponent {
 }
 --- FILE END ---
 
---- FILE START: 04-core-code/ui/quote-preview-component.js ---
-// File: 04-core-code/ui/quote-preview-component.js
-
-import { EVENTS } from '../config/constants.js';
-
-/**
- * @fileoverview A component to manage the full-screen quote preview overlay.
- */
-export class QuotePreviewComponent {
-    constructor({ containerElement, eventAggregator }) {
-        if (!containerElement || !eventAggregator) {
-            throw new Error("Container element and event aggregator are required for QuotePreviewComponent.");
-        }
-        this.container = containerElement;
-        this.eventAggregator = eventAggregator;
-        this.originalTitle = document.title; // [NEW] Store the original document title
-
-        this.contentElement = this.container.querySelector('.quote-preview-content');
-        this.iframe = this.container.querySelector('.quote-preview-iframe');
-        this.closeButton = this.container.querySelector('.preview-btn-secondary');
-        this.printButton = this.container.querySelector('.preview-btn-primary');
-
-        this.initialize();
-        console.log("QuotePreviewComponent Initialized.");
-    }
-
-    initialize() {
-        this.eventAggregator.subscribe(EVENTS.SHOW_QUOTE_PREVIEW, (htmlContent) => this.show(htmlContent));
-
-        if (this.closeButton) {
-            this.closeButton.addEventListener('click', () => this.hide());
-        }
-
-        if (this.printButton) {
-            this.printButton.addEventListener('click', () => this.print());
-        }
-
-        this.container.addEventListener('click', (event) => {
-            if (event.target === this.container) {
-                this.hide();
-            }
-        });
-    }
-
-    /**
-     * Displays the preview overlay and injects the final HTML content.
-     * @param {string} htmlContent - The fully rendered HTML string to display.
-     */
-    show(htmlContent) {
-        if (!this.iframe) return;
-
-        // [NEW] Parse the title from the HTML content and set the main document's title.
-        const titleMatch = htmlContent.match(/<title>(.*?)<\/title>/);
-        if (titleMatch && titleMatch[1]) {
-            document.title = titleMatch[1];
-        }
-
-        // Use srcdoc to inject the HTML content. This provides a clean sandbox.
-        this.iframe.srcdoc = htmlContent;
-
-        // Use a slight delay to allow the content to be parsed before showing the overlay
-        setTimeout(() => {
-            this.container.classList.add('is-visible');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
-        }, 50);
-    }
-
-    /**
-     * Hides the preview overlay.
-     */
-    hide() {
-        this.container.classList.remove('is-visible');
-        document.body.style.overflow = ''; // Restore background scrolling
-        if (this.iframe) {
-            this.iframe.srcdoc = ''; // Clear content
-        }
-        // [NEW] Restore the original document title when the preview is hidden.
-        document.title = this.originalTitle;
-    }
-
-    /**
-     * Triggers the print dialog for the iframe's content.
-     */
-    print() {
-        if (this.iframe && this.iframe.contentWindow) {
-            this.iframe.contentWindow.print();
-        } else {
-            console.error("Could not access iframe content to print.");
-            this.eventAggregator.publish(EVENTS.SHOW_NOTIFICATION, {
-                message: "Error: Could not trigger print.",
-                type: 'error'
-            });
-        }
-    }
-}
---- FILE END ---
-
 --- FILE START: 04-core-code/ui/right-panel-component.js ---
 // File: 04-core-code/ui/right-panel-component.js
 
@@ -12672,136 +12619,6 @@ export class UIManager {
 }
 --- FILE END ---
 
---- FILE START: 04-core-code/ui/css/quote-preview.css ---
-/* File: 04-core-code/ui/css/quote-preview.css */
-
-/* --- Overlay Container --- */
-.quote-preview-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.75);
-    z-index: 10000;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    /* Align to the top to allow scrolling */
-    overflow-y: auto;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.quote-preview-overlay.is-visible {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* --- Content Wrapper --- */
-.quote-preview-content {
-    background-color: #f0f2f5;
-    /* Match template body background */
-    width: 100%;
-    max-width: 1200px;
-    margin: 40px auto;
-    /* Provide some space from top and bottom */
-    border-radius: 8px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-    position: relative;
-    transform: scale(0.95);
-    transition: transform 0.3s ease;
-}
-
-.quote-preview-overlay.is-visible .quote-preview-content {
-    transform: scale(1);
-}
-
-/* --- Iframe for Content Isolation --- */
-.quote-preview-iframe {
-    width: 100%;
-    height: 80vh;
-    /* Adjust as needed */
-    border: none;
-    border-radius: 8px 8px 0 0;
-}
-
-/* --- Action Bar --- */
-.quote-preview-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 15px;
-    padding: 15px;
-    background-color: #ffffff;
-    border-top: 1px solid #e0e0e0;
-    border-radius: 0 0 8px 8px;
-}
-
-.quote-preview-actions button {
-    padding: 10px 20px;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 5px;
-    border: 1px solid transparent;
-    transition: background-color 0.2s, border-color 0.2s;
-}
-
-.preview-btn-primary {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-}
-
-.preview-btn-primary:hover {
-    background-color: #151b54;
-}
-
-.preview-btn-secondary {
-    background-color: #6c757d;
-    color: white;
-    border-color: #5a6268;
-}
-
-.preview-btn-secondary:hover {
-    background-color: #5a6268;
-}
-
-
-/* --- Print-Specific Styles --- */
-@media print {
-    body>*:not(.quote-preview-overlay) {
-        display: none !important;
-    }
-
-    .quote-preview-overlay {
-        position: static;
-        background-color: transparent;
-        overflow: visible;
-        display: block;
-        padding: 0;
-        margin: 0;
-    }
-
-    .quote-preview-content {
-        box-shadow: none;
-        margin: 0;
-        border-radius: 0;
-        max-width: 100%;
-    }
-
-    .quote-preview-iframe {
-        width: 100%;
-        height: auto;
-    }
-
-    .quote-preview-actions {
-        display: none !important;
-    }
-}
---- FILE END ---
-
 --- FILE START: 04-core-code/ui/css/results-table.css ---
 /* File: 04-core-code/ui/css/results-table.css */
 
@@ -13366,7 +13183,7 @@ export class UIManager {
         .page-container {
             max-width: 1200px;
             margin: auto;
-            padding: 15px;
+            padding: 20px;
         }
 
         .content-wrapper {
@@ -13435,7 +13252,6 @@ export class UIManager {
             border-top: 2px solid #ccc;
         }
 
-        /* [NEW] Conditional background colors for fabric types */
         .bg-blockout {
             background-color: #f0f0f0;
             /* Light Grey */
@@ -13485,12 +13301,11 @@ export class UIManager {
         }
 
         .legend p {
-            margin: 8px 0; /* Increased margin for better spacing */
-            display: flex; /* Use flexbox for alignment */
+            margin: 8px 0;
+            display: flex;
             align-items: center;
         }
 
-        /* [NEW] Style for the color swatch */
         .color-swatch {
             display: inline-block;
             width: 14px;
@@ -13504,28 +13319,24 @@ export class UIManager {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
-        
-        /* --- [NEW] Flexbox container for appendix layout --- */
+
         .appendix-flex-container {
             display: flex;
             gap: 20px;
             margin-top: 40px;
-            align-items: flex-start; /* Align items to the top */
+            align-items: flex-start;
         }
 
         .appendix-flex-container > * {
-            flex: 1; /* Each child takes up equal space */
-            min-width: 0; /* Allow flex items to shrink */
+            flex: 1;
+            min-width: 0;
         }
-
-        /* On smaller screens, stack them vertically */
+        
         @media (max-width: 850px) {
             .appendix-flex-container {
                 flex-direction: column;
             }
         }
-        /* --- End of new styles --- */
-
 
         @media (max-width: 768px) {
             .page-container {
@@ -13540,6 +13351,58 @@ export class UIManager {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 5px;
+            }
+
+            /* [MODIFIED] Re-styled mobile table to keep thead and use card-like rows */
+            .table-scroll-wrapper {
+                overflow-x: hidden;
+            }
+            .detailed-list-table, .motorised-accessories-table {
+                border: none;
+            }
+            .detailed-list-table thead, .motorised-accessories-table thead {
+                border: none;
+                clip: rect(0 0 0 0);
+                height: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+            .detailed-list-table tr, .motorised-accessories-table tr {
+                display: block;
+                margin-bottom: 15px;
+                border: 1px solid var(--border-light-grey);
+                border-radius: 5px;
+                padding: 0;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            }
+            .detailed-list-table td, .motorised-accessories-table td {
+                display: flex;
+                justify-content: space-between;
+                padding: 10px 15px;
+                border: none;
+                border-bottom: 1px solid var(--border-light-grey);
+                text-align: right;
+            }
+            .detailed-list-table tr td:last-child, .motorised-accessories-table tr td:last-child {
+                border-bottom: none;
+            }
+            .detailed-list-table td:before, .motorised-accessories-table td:before {
+                content: attr(data-label);
+                font-weight: 600;
+                text-align: left;
+                padding-right: 15px;
+            }
+            .detailed-list-table td:first-of-type, .motorised-accessories-table td:first-of-type {
+                background-color: var(--header-bg-color);
+                color: #333;
+                font-weight: bold;
+                border-radius: 4px 4px 0 0;
+            }
+            .detailed-list-table td:first-of-type::before, .motorised-accessories-table td:first-of-type::before {
+                color: #333;
             }
         }
     </style>
@@ -14076,12 +13939,12 @@ export class UIManager {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{documentTitle}}</title>
     <style>
-        /* --- ?öÁî®Ê®?? --- */
+        /* --- ?öÁî®Ê®???áË???--- */
         :root {
             --primary-color: #1a237e;
             /* Ê∑±Ë???*/
             --border-color: #e0e0e0;
-            /* Ê∑∫ÁÅ∞?≤È?Ê°?*/
+            /* ?äÊ?È°èËâ≤ */
             --text-color: #333;
             --success-color: #2e7d32;
             /* Á∂†Ëâ≤ÔºåÁî®?ºÁ??ÅÈ?È°?*/
@@ -14107,6 +13970,7 @@ export class UIManager {
         .quotation-inner-wrapper {
             border: 2px solid #a0d3e8;
             padding: 40px;
+            border-radius: 8px;
         }
 
         /* --- ?ÅÈ? Header --- */
@@ -14166,7 +14030,7 @@ export class UIManager {
             margin-left: 0;
             margin-right: 8px;
         }
-
+        
         .company-details .icon {
             order: 1;
             margin-right: 0;
@@ -14241,6 +14105,11 @@ export class UIManager {
         .items-table .is-excluded {
             text-decoration: line-through;
             color: #999;
+        }
+        
+        .table-scroll-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         /* --- Á∏ΩË? --- */
@@ -14412,28 +14281,46 @@ export class UIManager {
             .payment-info,
             .call-to-action {
                 width: 100%;
+                box-sizing: border-box; /* Fix for overflow issue */
             }
 
+            /* [MODIFIED] Re-styled mobile table to keep thead and use card-like rows */
+            .table-scroll-wrapper {
+                overflow-x: hidden; /* Prevent horizontal scroll on the wrapper */
+            }
+            .items-table {
+                border: none;
+            }
             .items-table thead {
-                display: none;
+                /* Visually hide the original header, but keep it for accessibility */
+                border: none;
+                clip: rect(0 0 0 0);
+                height: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
             }
-
             .items-table tr {
                 display: block;
-                margin-bottom: 20px;
+                margin-bottom: 15px;
                 border: 1px solid var(--border-color);
-                border-radius: 4px;
-                padding: 15px;
+                border-radius: 5px;
+                padding: 0;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             }
-
             .items-table td {
                 display: flex;
                 justify-content: space-between;
-                padding: 8px 0;
+                padding: 10px 15px;
                 border: none;
+                border-bottom: 1px solid var(--border-color);
                 text-align: right;
             }
-
+            .items-table tr td:last-child {
+                border-bottom: none;
+            }
             .items-table td:before {
                 content: attr(data-label);
                 font-weight: 600;
@@ -14441,9 +14328,15 @@ export class UIManager {
                 padding-right: 15px;
                 color: #333;
             }
-
-            .items-table .align-right {
-                text-align: right;
+            /* Style the first cell of each row to look like a header */
+            .items-table td:first-of-type {
+                background-color: var(--primary-color);
+                color: white;
+                font-weight: bold;
+                border-radius: 4px 4px 0 0;
+            }
+            .items-table td:first-of-type::before {
+                color: white;
             }
         }
     </style>
@@ -14467,7 +14360,7 @@ export class UIManager {
                     <p>
                         <span>0466 965 168<span class="icon">??</span></span>
                         <span style="margin: 0 10px;">|</span>
-                        <span>ezblinds@ezbns.com.au<span class="icon">?âÔ?</span></span>
+                        <span>ezblinds@ezbns.com.au<span class="icon">?ìß</span></span>
                     </p>
                     <p>www.ezbns.com.au<span class="icon">??</span></p>
                 </div>
@@ -14479,20 +14372,22 @@ export class UIManager {
                 </section>
 
                 <section class="items-section">
-                    <table class="items-table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Description</th>
-                                <th class="align-right">QTY</th>
-                                <th class="align-right">Price</th>
-                                <th class="align-right">Discounted Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{{itemsTableBody}}}
-                        </tbody>
-                    </table>
+                    <div class="table-scroll-wrapper">
+                        <table class="items-table">
+                            <thead>
+                                <tr>
+                                    <th>NO</th>
+                                    <th>Description</th>
+                                    <th class="align-right">QTY</th>
+                                    <th class="align-right">Price</th>
+                                    <th class="align-right">Discounted Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{{itemsTableBody}}}
+                            </tbody>
+                        </table>
+                    </div>
                 </section>
 
                 <section class="summary-section">
